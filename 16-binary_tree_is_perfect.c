@@ -7,25 +7,17 @@
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-
 	if (tree == NULL)
 		return (0);
 
-	/* Calculate the height of the left and right subtrees */
-	int left_height = binary_tree_height(tree->left);
-	int right_height = binary_tree_height(tree->right);
+	/* Handle empty tree as a perfect tree */
+	if (tree->left == NULL && tree->right == NULL)
+		return (1);
 
-	/* Check if left and right subtrees have the same height */
-	if (left_height == right_height)
-	{
-		/* If the left and right subtrees are perfect, the tree is perfect */
-		if (binary_tree_is_perfect(tree->left) &&
-				binary_tree_is_perfect(tree->right))
-			return (1);
-		return (0);
-	}
-
-	return (0);
+	/* Check if both subtrees are perfect and have the same height */
+	return (binary_tree_is_perfect(tree->left) &&
+		binary_tree_is_perfect(tree->right) &&
+		binary_tree_height(tree->left) == binary_tree_height(tree->right));
 }
 
 /**
